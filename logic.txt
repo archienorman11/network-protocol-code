@@ -1,0 +1,53 @@
+broadcast receive
+  contains:
+    - from address
+    - summary vector
+      - header
+      - message_ids[array] (5 maximum)
+
+    if (message_ids[i] exists in messages_list) {
+      do nothing
+    }
+
+    else {
+      send unicast:
+      - header
+      - missing messages
+    }
+
+unicast_receive
+  contains:
+    - from address
+    - sequence number
+    - messages
+
+    if message->dest == me {
+      print the message out, no need to keep it as its reached its destination
+    }
+
+    else if (message[i] ! exist in message_list) {
+        pop oldest items in message_list
+        decrease L
+        add messages to message_list
+      }
+    }
+
+broadcast
+  contains:
+    - from address
+    - summary vector
+      - header
+      - message_ids[array] (5 maximum)
+
+    broadcast:
+      - header
+      for i in messages_list {
+        send message_id[i]
+      }
+
+unicast
+    initiated from broadcast received
+
+    send unicast:
+    - header
+    - missing messages
