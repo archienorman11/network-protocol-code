@@ -110,6 +110,7 @@ recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8_t seqno)
          && (rimeaddr_cmp(&vector_rec->message[i].hdr.message_id.dest, &tmp->message.hdr.message_id.dest))
          && (&vector_rec->message[i].hdr.message_id.seq == &tmp->message.hdr.message_id.seq)) {
           flag = 1;
+          printf("Flag 1 set ...\n" );
           break;
         }
       }
@@ -126,16 +127,17 @@ recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8_t seqno)
         vector_rec->message[i].hdr.message_id.seq);
         if(list_length(messages_list) < 5){
           new = memb_alloc(&messages_memb);
-          memcpy(new, vector_rec, sizeof(dtn_vector));
+          memcpy(&new->message, &vector_rec->message[i], sizeof(dtn_message));
+          printf("%d\n", new->message.hdr.message_id.src.u8[1]);
           list_add(messages_list, new);
         }
         else if (list_length(messages_list) >= 5){
           printf("5 reached.. removing\n");
-          r = list_head(messages_list);
-          list_remove(messages_list, r);
-          memb_free(&messages_memb, r);
+          //r = list_head(messages_list);
+          list_chop(messages_list);
+          //memb_free(&messages_memb, r);
           new = memb_alloc(&messages_memb);
-          memcpy(new, vector_rec, sizeof(dtn_vector));
+          memcpy(&new->message, &vector_rec->message[i], sizeof(dtn_message));
           list_add(messages_list, new);
         }
       }
@@ -181,7 +183,8 @@ PROCESS_THREAD(broadcast_process, ev, data)
     printf("My address is: %d.%d\n",node_addr.u8[0], node_addr.u8[1]);
     /* Open the connection */
     broadcast_open(&broadcast, 129, &broadcast_call);
-    set_power(5);
+    set_power(0x01);
+
     /* Always going to be true */
     while(1) {
       /* Send a broadcast every 16 - 32 seconds */
@@ -199,13 +202,12 @@ PROCESS_THREAD(broadcast_process, ev, data)
       inject.src =  rimeaddr_node_addr;
       inject.seq = 111;
 
-      printf("%d.%d|%d.%d|%d *** Summay vector already received: %d.%d\n",
+      printf("%d.%d|%d.%d|%d\n",
       inject.src.u8[0], inject.src.u8[1],
       inject.dest.u8[0], inject.dest.u8[1],
-      inject.seq,
-      n->summary.message_ids[0].dest.u8[0],
-      n->summary.message_ids[0].dest.u8[1]);
-
+      inject.seq);
+      // n->summary.message_ids[0].dest.u8[0],
+      // n->summary.message_ids[0].dest.u8[1]);
       msg.header = header;
       msg.message_ids[0] = inject;
       //place some values here
@@ -305,6 +307,9 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
             n->summary.message_ids[i].seq*/);
             n = list_item_next(n);
           }
+        }
+        else {
+          printf("No neighbours in the list\n");
         }
       }
     }
