@@ -10,7 +10,7 @@
 #include "hmc5883l.h"
 #include <stdio.h>
 #include <string.h>
-/*Test*/
+/*Test 2*/
 #define FLASH_LED(l) {leds_on(l); clock_delay_msec(50); leds_off(l); clock_delay(50);}
 /* This is the structure of unicast ping messages. */
 struct runicast_message {
