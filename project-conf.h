@@ -1,0 +1,11 @@
+
+#ifndef __PROJECT_CONF_H__
+#define __PROJECT_CONF_H__
+
+#undef RIMEADDR_CONF_SIZE
+#define RIMEADDR_CONF_SIZE  2
+
+#define DTN_BROADCAST_CHANNEL 129
+#define DTN_RUNICAST_CHANNEL 144
+
+#endif /* __PROJECT_CONF_H__ */

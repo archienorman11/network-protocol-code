@@ -1,0 +1,3 @@
+We have created our own network protocol and implemented the Spray and Wait algorithm for a Delay Tolerant Network. 
+
+We used Contiki and OrisenPrime.
