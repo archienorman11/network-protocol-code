@@ -10,8 +10,11 @@
 #include "hmc5883l.h"
 #include <stdio.h>
 #include <string.h>
-/*Test 2*/
+
 #define FLASH_LED(l) {leds_on(l); clock_delay_msec(50); leds_off(l); clock_delay(50);}
+#define MAX_NEIGHBORS 16
+#define MAX_RETRANSMISSIONS 4
+
 /* This is the structure of unicast ping messages. */
 struct runicast_message {
   uint8_t type;
@@ -25,9 +28,12 @@ struct neighbor {
   clock_time_t timestamp;
   dtn_summary_vector summary;
 };
-/* This #define defines the maximum amount of neighbors we can remember. */
-#define MAX_NEIGHBORS 16
-#define MAX_RETRANSMISSIONS 4
+
+static struct broadcast_conn broadcast;
+static struct unicast_conn unicast;
+static struct etimer et;
+static clock_time_t current_time;
+
 /* This MEMB() definition defines a memory pool from which we allocate neighbor entries. */
 MEMB(neighbors_memb, struct neighbor, MAX_NEIGHBORS);
 /* The neighbors_list is a Contiki list that holds the neighbors we have seen thus far. */
@@ -36,11 +42,6 @@ LIST(neighbors_list);
 MEMB(messages_memb, dtn_summary_vector, MAX_MESSAGES);
 /* The neighbors_list is a Contiki list that holds the messages we have seen thus far. */
 LIST(messages_list);
-/* These hold the broadcast and unicast structures, respectively. */
-static struct broadcast_conn broadcast;
-static struct unicast_conn unicast;
-static struct etimer et;
-static clock_time_t current_time;
 /*---------------------------------------------------------------------------*/
 /* We first declare our two processes. */
 PROCESS(broadcast_process, "Broadcast process");
@@ -82,7 +83,6 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
     }
     /* Initialize the fields. */
     rimeaddr_copy(&n->addr, from);
-    n->seqno = 0;
     n->timestamp = clock_time();
     /* Place the neighbor on the neighbor list. */
     list_add(neighbors_list, n);
@@ -100,7 +100,6 @@ recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8_t seqno)
     dtn_vector_list *vector_local, *tmp, *r, *new;
     dtn_vector *vector_rec;
     int i;
-    int b;
     int flag;
     vector_rec = packetbuf_dataptr();
     printf("Unicast recieved from %d.%d \n", from->u8[0], from->u8[1]);
@@ -140,9 +139,6 @@ recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8_t seqno)
           list_add(messages_list, new);
         }
       }
-      else {
-        printf("Something up with Flag\n");
-      }
     }
 }
 static void
@@ -153,12 +149,9 @@ sent_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t retransmiss
 static void
 timedout_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t retransmissions)
 {
-  printf("runicast message timed out when sending to %d.%d, retransmissions %d\n",
-         to->u8[0], to->u8[1], retransmissions);
+  printf("runicast message timed out when sending to %d.%d, retransmissions %d\n", to->u8[0], to->u8[1], retransmissions);
 }
-static const struct runicast_callbacks runicast_callbacks = {recv_runicast,
-                                                             sent_runicast,
-                                                             timedout_runicast};
+static const struct runicast_callbacks runicast_callbacks = {recv_runicast, sent_runicast, timedout_runicast};
 static struct runicast_conn runicast;
 /*---------------------------------------------------------------------------*/
 /* Sending out a broadcast */
