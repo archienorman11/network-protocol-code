@@ -4,6 +4,9 @@ convert_time(clock_time_t time){
   return time / 100;
 };
 
+
+/** PRINT NEIGHBORS **/
+
 // else if (ev == sensors_event && data == &button2_sensor){
 //   if(list_length(neighbors_list) > 0) {
 //     n = list_head(neighbors_list);
@@ -24,3 +27,23 @@ convert_time(clock_time_t time){
 //     printf("No neighbours in the list\n");
 //   }
 // }
+
+
+/** PRINT MESSAGES LIST **/
+
+//if(list_length(messages_list) > 0) {
+//t = list_head(messages_list);
+//printf("Length: %d\n", list_length(messages_list) );
+//current_time = clock_time();
+//  for(i = 0; i < list_length(messages_list); i++) {
+//    //for(tmp = list_head(messages_list); tmp != NULL; tmp = list_item_next(tmp))
+//    printf("message_list_item --- Source: %d.%d | Dest: %d.%d | Seq: %d M:%s\n",
+//    t->message.hdr.message_id.src.u8[0], t->message.hdr.message_id.src.u8[1],
+//    t->message.hdr.message_id.dest.u8[0], t->message.hdr.message_id.dest.u8[1],
+//    t->message.hdr.message_id.seq, t->message.msg);
+//    t = list_item_next(t);
+//  }
+//}
+//else {
+//  printf("No messages in the list\n");
+//}

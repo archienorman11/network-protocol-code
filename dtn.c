@@ -42,6 +42,8 @@ LIST(neighbors_list);
 MEMB(messages_memb, dtn_summary_vector, MAX_MESSAGES);
 /* The neighbors_list is a Contiki list that holds the messages we have seen thus far. */
 LIST(messages_list);
+
+
 /*---------------------------------------------------------------------------*/
 /* We first declare our two processes. */
 PROCESS(broadcast_process, "Broadcast process");
@@ -92,6 +94,8 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
 }
 /* This is where we define what function to be called when a broadcast is received. We pass a pointer to this structure in the broadcast_open() call below. */
 static const struct broadcast_callbacks broadcast_call = {broadcast_recv};
+
+
 /*---------------------------------------------------------------------------*/
 /* This function is called for every incoming unicast packet. */
 static void
@@ -155,6 +159,8 @@ timedout_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t retrans
 }
 static const struct runicast_callbacks runicast_callbacks = {recv_runicast, sent_runicast, timedout_runicast};
 static struct runicast_conn runicast;
+
+
 /*---------------------------------------------------------------------------*/
 /* Sending out a broadcast */
 PROCESS_THREAD(broadcast_process, ev, data)
@@ -217,6 +223,8 @@ PROCESS_THREAD(broadcast_process, ev, data)
     /* Done */
     PROCESS_END();
 }
+
+
 /*---------------------------------------------------------------------------*/
 /* Send out a reliable unicast */
 PROCESS_THREAD(runicast_process, ev, data)
@@ -257,6 +265,8 @@ PROCESS_THREAD(runicast_process, ev, data)
     }
 PROCESS_END();
 }
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(simulate_neighbor, ev, data)
 {
@@ -293,6 +303,15 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
         }
       }
       else if (ev == sensors_event && data == &button2_sensor){
+
+        /* Randomly update a neighbour entry */
+        rimeaddr_copy(&addr, &rimeaddr_null);
+        addr.u8[0] = 128; /* [1-6] */
+        addr.u8[1] = 1 + (random_rand() % 6); /* [1-6] */
+
+        broadcast_recv(&addr);
+        PRINTADDR(addr.u8);
+
         if(list_length(neighbors_list) > 0) {
           n = list_head(neighbors_list);
           current_time = clock_time();
@@ -315,6 +334,8 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
     }
 PROCESS_END();
 }
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(cache_cleaner, ev, data)
 {
