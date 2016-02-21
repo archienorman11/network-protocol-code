@@ -270,113 +270,109 @@ PROCESS_END();
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(simulate_neighbor, ev, data)
 {
-    static uint8_t seqno;
-    /* start the process */
-    PROCESS_BEGIN();
-    /* Initialise button sensors */
-    SENSORS_ACTIVATE(button_sensor);
-    SENSORS_ACTIVATE(button2_sensor);
-    struct neighbor *n;
-    dtn_vector_list *t;
-    rimeaddr_t node_addr;
-    dtn_summary_vector msg;
-    dtn_header header;
-    dtn_msg_id inject;
-    int i;
-    int b;
-    /* This loop is always true*/
-    while(1) {
-      /* Wait until an event is received, in this case the button is pressed */
-      PROCESS_WAIT_EVENT_UNTIL((ev == sensors_event && data == &button_sensor) ||
-                              (ev == sensors_event && data == &button2_sensor));
-      if (ev == sensors_event && data == &button_sensor){
-        if(list_length(messages_list) > 0) {
-          t = list_head(messages_list);
-          printf("Length: %d\n", list_length(messages_list) );
-          current_time = clock_time();
-          for(i = 0; i < list_length(messages_list); i++) {
-          //for(tmp = list_head(messages_list); tmp != NULL; tmp = list_item_next(tmp))
-            printf("message_list_item --- Source: %d.%d | Dest: %d.%d | Seq: %d M:%s\n",
-            t->message.hdr.message_id.src.u8[0], t->message.hdr.message_id.src.u8[1],
-            t->message.hdr.message_id.dest.u8[0], t->message.hdr.message_id.dest.u8[1],
-            t->message.hdr.message_id.seq, t->message.msg);
-            t = list_item_next(t);
-          }
-        }
-        else {
-          printf("No messages in the list\n");
-        }
-      }
-      else if (ev == sensors_event && data == &button2_sensor){
+  rimeaddr_t node_addr;
+  rimeaddr_t dest_addr;
+  dtn_summary_vector inject, msg;
+  dtn_vector *m;
+  dtn_header header;
+  neighbor *n;
+  int i;
+  int b;
 
-        /* Randomly update a neighbour entry */
+  PROCESS_BEGIN();
+  SENSORS_ACTIVATE(button_sensor);
+  SENSORS_ACTIVATE(button2_sensor);
+  while(1) {
+    PROCESS_WAIT_EVENT_UNTIL((ev == sensors_event && data == &button_sensor) ||
+                            (ev == sensors_event && data == &button2_sensor));
+      if (ev == sensors_event && data == &button_sensor) {
+
         rimeaddr_copy(&node_addr, &rimeaddr_null);
-        node_addr.u8[0] = 128; /* [1-6] */
-        node_addr.u8[1] = 1 + (random_rand() % 6); /* [1-6] */
-        printf("--- Adding: %d.%d to the neighbours list ---\n", node_addr.u8[0], node_addr.u8[1]);
-        header.ver = 1;
-        header.type = 1;
-        header.len = 1;
-        inject.dest = n->addr;
-        inject.src =  rimeaddr_node_addr;
-        inject.seq = 111;
-        msg.header = header;
-        msg.message_ids[0] = inject;
-        packetbuf_copyfrom(&msg, sizeof(dtn_summary_vector));
-        broadcast_recv(&broadcast, &node_addr);
+        node_addr.u8[0] = 128;
+        node_addr.u8[1] = 1 + (random_rand() % 3);
 
-        if(list_length(neighbors_list) > 0) {
-          n = list_head(neighbors_list);
-          current_time = clock_time();
-          printf("--- Printing out the neghbours list ---\n" );
-          for(i = 0; i < list_length(neighbors_list); i++) {
-            printf("*** ID: %d.%d, Received at: %d seconds ***\n", n->addr.u8[0], n->addr.u8[1],
-              convert_time(n->timestamp));
-            for (b = 0; b < n->summary.header.len; b++){
-              printf("\t--- Src: %d.%d | Dest: %d.%d | Seg: %d --- \n",
-              n->summary.message_ids[i].src.u8[0],
-              n->summary.message_ids[i].src.u8[1],
-              n->summary.message_ids[i].dest.u8[0],
-              n->summary.message_ids[i].dest.u8[1],
-              n->summary.message_ids[i].seq);
-            }
-            n = list_item_next(n);
+        printf("--- Adding: %d.%d to the neighbours list ---\n", node_addr.u8[0], node_addr.u8[1]);
+
+        header.ver = 3;
+        header.type = 2;
+        header.len = 3;
+
+        for (i = 0; i < header.len; i++) {
+          rimeaddr_copy(&dest_addr, &rimeaddr_null);
+          dest_addr.u8[0] = 128;
+          dest_addr.u8[1] = 1 + (random_rand() % 5);
+          inject.message_ids[i].dest = dest_addr;
+          inject.message_ids[i].src =  node_addr;
+          inject.message_ids[i].seq = 111;
+          inject.message_ids[i].seq = 111;
+        }
+        inject.header = header;
+
+        packetbuf_copyfrom(&inject, sizeof(dtn_summary_vector));
+        broadcast_recv(&broadcast, &node_addr);
+    }
+
+    else if (ev == sensors_event && data == &button2_sensor){
+      if(list_length(neighbors_list) > 0) {
+        n = list_head(neighbors_list);
+        current_time = clock_time();
+
+        for(i = 0; i < list_length(neighbors_list); i++) {
+          printf("*** ID: %d.%d, Received at: %d seconds ***\n", n->addr.u8[0], n->addr.u8[1],
+            convert_time(n->timestamp));
+
+          for (b = 0; b < n->summary.header.len; b++){
+            printf("\t---NEIGHBOUR PRINTOUT - Src: %d.%d | Dest: %d.%d | Seg: %d --- \n",
+
+            n->summary.message_ids[b].src.u8[0],
+            n->summary.message_ids[b].src.u8[1],
+            n->summary.message_ids[b].dest.u8[0],
+            n->summary.message_ids[b].dest.u8[1],
+            n->summary.message_ids[b].seq);
           }
+          n = list_item_next(n);
         }
-        else {
-          printf("No neighbours in the list\n");
+
+        m = list_head(messages_list);
+        printf("PRINTING MESSAGES LIST \n");
+        for(i = 0; i < list_length(messages_list); i++) {
+            printf("\t --- MSGS PRINTOUT - Src: %d.%d | Dest: %d.%d | Seg: %d | Msg: %s --- \n",
+
+            m->message[i].hdr.message_id.src.u8[0],
+            m->message[i].hdr.message_id.src.u8[1],
+            m->message[i].hdr.message_id.dest.u8[0],
+            m->message[i].hdr.message_id.dest.u8[1],
+            m->message[i].hdr.message_id.seq,
+            m->message[i].msg);
         }
+        m = list_item_next(m);
       }
     }
-PROCESS_END();
+  }
+  PROCESS_END();
 }
-
 
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(cache_cleaner, ev, data)
 {
-    /* Start the process */
-    PROCESS_BEGIN();
-    /* Initialise button sensors */
-    SENSORS_ACTIVATE(button_sensor);
-    SENSORS_ACTIVATE(button2_sensor);
-    struct neighbor *n;
-    dtn_summary_vector msg;
-    int i;
-    /* This loop is always true*/
-    while(1) {
-      /* Wait until an event is received, in this case the button is pressed */
-      etimer_set(&et, CLOCK_SECOND);
-      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-      n = list_head(neighbors_list);
-        for(i = 0; i < list_length(neighbors_list); i++) {
-          if (convert_time(n->timestamp) < (convert_time(clock_time()) - 10)){
-            printf("%d.%d is getting pretty old... last timestamp: %d and current time: %d\n", n->addr.u8[0], n->addr.u8[1], convert_time(n->timestamp), convert_time(clock_time()));
-            list_remove(neighbors_list, n);
-            memb_free(&neighbors_memb, n);
-          }
-          n = list_item_next(n);
+  PROCESS_BEGIN();
+  neighbor *n;
+  dtn_summary_vector msg;
+  int i;
+  while(1) {
+    etimer_set(&et, CLOCK_SECOND);
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+    n = list_head(neighbors_list);
+
+      for(i = 0; i < list_length(neighbors_list); i++) {
+
+        if (convert_time(n->timestamp) < (convert_time(clock_time()) - 10)){
+          printf("Popping: %d.%d - Timestamp: %d Time: %d\n", n->addr.u8[0], n->addr.u8[1], convert_time(n->timestamp), convert_time(clock_time()));
+          list_remove(neighbors_list, n);
+          memb_free(&neighbors_memb, n);
         }
-    }
+        n = list_item_next(n);
+      }
+  }
 PROCESS_END();
 }

@@ -42,6 +42,8 @@ typedef struct
 	uint8_t reserved;
 }dtn_msg_header;
 
+//broadcast messages
+
 typedef struct
 {
 	dtn_header header;
@@ -54,11 +56,14 @@ typedef struct
 	char msg[MAX_MSG_SIZE];
 }dtn_message;
 
+//uniacst massages
+
 typedef struct
 {
 	dtn_header header;
 	dtn_message message[MAX_MESSAGES];
 }dtn_vector;
+
 
 typedef struct
 {

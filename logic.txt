@@ -27,7 +27,6 @@ unicast_receive
 
     else if (message[i] ! exist in message_list) {
         pop oldest items in message_list
-        decrease L
         add messages to message_list
       }
     }
