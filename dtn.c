@@ -67,7 +67,7 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
           rimeaddr_cmp(&received->message_ids[i].dest, &tmp->message.hdr.message_id.dest) &&
           received->message_ids[i].seq == &tmp->message.hdr.message_id.seq) {
 
-          printf("\t---NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d ---   \n",
+          printf("\t---NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
                 &tmp->message.hdr.message_id.src.u8[0],
                 &tmp->message.hdr.message_id.src.u8[1],
                 &tmp->message.hdr.message_id.dest.u8[0],
@@ -77,7 +77,7 @@ broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
         }
         else {
 
-          printf("\t---DONT NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d ---   \n",
+          printf("\t---DONT NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
                 &tmp->message.hdr.message_id.src.u8[0],
                 &tmp->message.hdr.message_id.src.u8[1],
                 &tmp->message.hdr.message_id.dest.u8[0],
@@ -163,18 +163,13 @@ static struct runicast_conn runicast;
 PROCESS_THREAD(broadcast_process, ev, data)
 {
     static struct etimer et;
-    static uint8_t seqno;
-    dtn_summary_vector msg;
-    dtn_header header;
-    dtn_msg_id inject;
-    rimeaddr_t node_addr;
-    neighbor *n;
-    int randneighbor;
     int i;
+    dtn_summary_vector *send;
+    dtn_vector_list *tmp;
 
-    header.ver = 1;
-    header.type = 1;
-    header.len = 1;
+    header.ver = 3;
+    header.type = 2;
+    header.len = 3;
 
     PROCESS_EXITHANDLER(broadcast_close(&broadcast);)
     PROCESS_BEGIN();
@@ -185,24 +180,27 @@ PROCESS_THREAD(broadcast_process, ev, data)
     broadcast_open(&broadcast, 129, &broadcast_call);
 
     while(1) {
-      etimer_set(&et, CLOCK_SECOND * 3 + random_rand() % (CLOCK_SECOND * 3));
-      PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-      if(list_length(neighbors_list) > 0) {
-        randneighbor = random_rand() % list_length(neighbors_list);
-        n = list_head(neighbors_list);
-        for(i = 0; i < randneighbor; i++) {
-            n = list_item_next(n);
+        etimer_set(&et, CLOCK_SECOND * 3 + random_rand() % (CLOCK_SECOND * 3));
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+        printf("*** Broadcasting my summary vector ****");
+        for(tmp = list_head(messages_list); tmp != NULL; tmp = list_item_next(tmp)) {
+            printf("\tItem in messages_list --Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
+            &tmp->message.hdr.message_id.src.u8[0],
+            &tmp->message.hdr.message_id.src.u8[1],
+            &tmp->message.hdr.message_id.dest.u8[0],
+            &tmp->message.hdr.message_id.dest.u8[1],
+            &tmp->message.hdr.message_id.seq
+            );
+
+            send->message_ids.src = &tmp->message.hdr.message_id.src;
+            send->message_ids.dest = &tmp->message.hdr.message_id.dest;
+            send->message_ids.seq = &tmp->message.hdr.message_id.seq;
+
         }
-      }
-      inject.dest = n->addr;
-      inject.src =  rimeaddr_node_addr;
-      inject.seq = 111;
 
-      msg.header = header;
-      msg.message_ids[0] = inject;
-
-      packetbuf_copyfrom(&msg, sizeof(dtn_summary_vector));
-      broadcast_send(&broadcast);
+        send->header = header;
+        packetbuf_copyfrom(&send, sizeof(dtn_summary_vector));
+        broadcast_send(&broadcast);
     }
     PROCESS_END();
 }
