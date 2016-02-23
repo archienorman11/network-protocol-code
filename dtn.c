@@ -37,7 +37,7 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
 {
   dtn_summary_vector *broadcast_received;
   dtn_vector_list *tmp;
-  static dtn_vector unicast_message;
+  static dtn_message unicast_message;
   broadcast_received = packetbuf_dataptr();
   int flag, i;
   for(tmp = list_head(messages_list); tmp != NULL; tmp = list_item_next(tmp)) {
@@ -57,31 +57,36 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
       }
     }
     if (flag == 0) {
-      printf("\t--- NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d --- TO: %d.%d \n",
+      printf("\t--- NEED TO SEND - Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- TO: %d.%d \n",
         tmp->message.hdr.message_id.src.u8[0],
         tmp->message.hdr.message_id.src.u8[1],
         tmp->message.hdr.message_id.dest.u8[0],
         tmp->message.hdr.message_id.dest.u8[1],
         tmp->message.hdr.message_id.seq,
+             tmp->message.msg,
         from->u8[0],
         from->u8[1]
         );
-        header.type = DTN_MESSAGE;
-        header.len = 1;
-        unicast_message.header = header;
-        unicast_message.header = tmp->message.hdr.message_id
-        packetbuf_copyfrom(&unicast_message, sizeof(dtn_vector));
-        runicast_send(&runicast, &n->addr, MAX_RETRANSMISSIONS);
+        unicast_message.hdr.timestamp = tmp->message.hdr.timestamp;
+        unicast_message.hdr.number_of_copies = tmp->message.hdr.number_of_copies;
+        unicast_message.hdr.length = tmp->message.hdr.length;
+        unicast_message.hdr.message_id = tmp->message.hdr.message_id;
+
+        unicast_message.msg = tmp->message.msg;
+
+        packetbuf_copyfrom(&unicast_message, sizeof(dtn_message));
+        runicast_send(&runicast, &from, MAX_RETRANSMISSIONS);
     }
     else if (flag == 1) {
-      printf("\t---%d.%d already has: - Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
+      printf("\t---%d.%d already has: - Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- \n",
         from->u8[0],
         from->u8[1],
         tmp->message.hdr.message_id.src.u8[0],
         tmp->message.hdr.message_id.src.u8[1],
         tmp->message.hdr.message_id.dest.u8[0],
         tmp->message.hdr.message_id.dest.u8[1],
-        tmp->message.hdr.message_id.seq
+        tmp->message.hdr.message_id.seq,
+             tmp->message.msg
         );
     }
   }
