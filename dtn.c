@@ -18,6 +18,7 @@ static struct broadcast_conn broadcast;
 static struct runicast_conn runicast;
 static struct etimer et;
 static clock_time_t current_time;
+
 /* This MEMB() definition defines a memory pool from which we allocate message entries. */
 MEMB(messages_memb, dtn_vector_list, MAX_MESSAGES);
 /* The neighbors_list is a Contiki list that holds the messages we have seen thus far. */
@@ -74,9 +75,10 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
         //unicast_message.msg = tmp->message.msg;
         rimeaddr_t destination;
         rimeaddr_copy(&destination, from);
-
-        packetbuf_copyfrom(&unicast_message, sizeof(dtn_message));
-        runicast_send(&runicast, from, MAX_RETRANSMISSIONS);
+        if(!runicast_is_transmitting(&runicast)) {
+          packetbuf_copyfrom(&unicast_message, sizeof(dtn_message));
+          runicast_send(&runicast, from, MAX_RETRANSMISSIONS);
+        }
     }
     else if (flag == 1) {
       printf("--- [ALERT] %d.%d already has: Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- \n",
@@ -96,20 +98,21 @@ static const struct broadcast_callbacks broadcast_call = {broadcast_recv};
 static void recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8_t seqno)
 {
   dtn_vector *unicast_recieved;
-  dtn_vector_list *add_to_list, *tmp;
+  dtn_vector_list *add_to_list, *tmp_head;
   int i;
   unicast_recieved = packetbuf_dataptr();
   for (i = 0; i < unicast_recieved->header.len; i++) {
-    printf("--- [R-UC] Src: %d.%d | Dest: %d.%d | Copies: %d | Timestamp: %d ---\n",
+    printf("--- [R-UC] Src: %d.%d | Dest: %d.%d | Copies: %d | Timestamp: %d | Msg *%s* ---\n",
       unicast_recieved->message[i].hdr.message_id.src.u8[0], unicast_recieved->message[i].hdr.message_id.src.u8[1],
       unicast_recieved->message[i].hdr.message_id.dest.u8[0], unicast_recieved->message[i].hdr.message_id.dest.u8[1],
-      unicast_recieved->message[i].hdr.number_of_copies, convert_time(unicast_recieved->message[i].hdr.timestamp));
+      unicast_recieved->message[i].hdr.number_of_copies, convert_time(unicast_recieved->message[i].hdr.timestamp),
+      unicast_recieved->message[i].msg);
       if (unicast_recieved->message[i].hdr.message_id.dest.u8[1] == 11) {
-        printf(" ********** Final desination reached **********\t --- Src: %d.%d | Dest: %d.%d | Copies: %d | Timestamp: %d ---\n",
+        printf(" ********** Final desination reached **********\t --- Src: %d.%d | Dest: %d.%d | Copies: %d | Timestamp: %d | Msg *%s* ---\n",
         unicast_recieved->message[i].hdr.message_id.src.u8[0], unicast_recieved->message[i].hdr.message_id.src.u8[1],
         unicast_recieved->message[i].hdr.message_id.dest.u8[0], unicast_recieved->message[i].hdr.message_id.dest.u8[1],
-        unicast_recieved->message[i].hdr.number_of_copies, convert_time(unicast_recieved->message[i].hdr.timestamp)
-        );
+        unicast_recieved->message[i].hdr.number_of_copies, convert_time(unicast_recieved->message[i].hdr.timestamp),
+        unicast_recieved->message[i].msg);
       }
       else {
         if(list_length(messages_list) < 5){
@@ -119,10 +122,10 @@ static void recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8
         }
         else if (list_length(messages_list) >= 5){
           printf("--- [ALERT] Popping last element\n");
-          tmp = list_pop(messages_list);
-          memb_free(&messages_memb, tmp);
+          tmp_head = list_pop(messages_list);
+          memb_free(&messages_memb, tmp_head);
           add_to_list = memb_alloc(&messages_memb);
-          memcpy(&add_to_list->message, &unicast_recieved->message[i], sizeof(dtn_vector_list));
+          memcpy(&add_to_list->message, &unicast_recieved->message[i], sizeof(dtn_message));
           list_add(messages_list, add_to_list);
         }
       }
@@ -178,8 +181,10 @@ PROCESS_THREAD(broadcast_process, ev, data)
       header.len = i;
       send.header = header;
       send.message_ids;
-      packetbuf_copyfrom(&send, sizeof(dtn_summary_vector));
-      broadcast_send(&broadcast);
+      if(!runicast_is_transmitting(&runicast)) {
+        packetbuf_copyfrom(&send, sizeof(dtn_summary_vector));
+        broadcast_send(&broadcast);
+      }
   }
   PROCESS_END();
 }
@@ -189,7 +194,7 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
   rimeaddr_t node_addr, dest_addr;
   static dtn_summary_vector sim_broadcast;
   static dtn_vector sim_unicast;
-  dtn_vector_list *m;
+  static dtn_vector_list *m;
   dtn_header header;
   int i, b;
   PROCESS_BEGIN();
@@ -199,46 +204,50 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
     PROCESS_WAIT_EVENT_UNTIL((ev == sensors_event && data == &button_sensor) ||
                             (ev == sensors_event && data == &button2_sensor));
       if (ev == sensors_event && data == &button_sensor) {
-        rimeaddr_copy(&node_addr, &rimeaddr_null);
-        node_addr.u8[0] = 128;
-        node_addr.u8[1] = 1 + (random_rand() % 3);
-        header.ver = 3;
-        header.type = 2;
-        header.len = 1;
-        for (i = 0; i < header.len; i++) {
+        if(!runicast_is_transmitting(&runicast)) {
+          rimeaddr_copy(&node_addr, &rimeaddr_null);
+          node_addr.u8[0] = 128;
+          node_addr.u8[1] = 1 + (random_rand() % 3);
+          header.ver = 3;
+          header.type = 2;
+          header.len = 1;
           rimeaddr_copy(&dest_addr, &rimeaddr_null);
           dest_addr.u8[0] = 128;
           dest_addr.u8[1] = 1 + (random_rand() % 5);
-          sim_broadcast.message_ids[i].dest = dest_addr;
-          sim_broadcast.message_ids[i].src =  node_addr;
-          sim_broadcast.message_ids[i].seq = 1;
-        }
-        sim_broadcast.header = header;
-        packetbuf_copyfrom(&sim_broadcast, sizeof(dtn_summary_vector));
-        //broadcast_recv(&broadcast, &node_addr);
-        /* Create an example variable capable of holding 50 characters */
-        for (i = 0; i < header.len; i++) {
-          rimeaddr_copy(&dest_addr, &rimeaddr_null);
-          dest_addr.u8[0] = 128;
-          dest_addr.u8[1] = 1 + (random_rand() % 5);
-          sim_unicast.message[i].hdr.message_id.dest = dest_addr;
-          sim_unicast.message[i].hdr.message_id.src =  node_addr;
-          sim_unicast.message[i].hdr.message_id.seq = 1;
-          sim_unicast.message[i].hdr.number_of_copies =  10;
-          sim_unicast.message[i].hdr.timestamp =  clock_time();
-          // char example[6];
-          // strcpy (example, "Hello");
-          // sim_unicast.message[i].msg = "Hi";
-        }
-        sim_unicast.header = header;
-        packetbuf_copyfrom(&sim_unicast, sizeof(dtn_vector));
-        recv_runicast(&runicast, &dest_addr, MAX_RETRANSMISSIONS);
+          // for (i = 0; i < header.len; i++) {
+          //   rimeaddr_copy(&dest_addr, &rimeaddr_null);
+          //   dest_addr.u8[0] = 128;
+          //   dest_addr.u8[1] = 1 + (random_rand() % 5);
+          //   sim_broadcast.message_ids[i].dest = dest_addr;
+          //   sim_broadcast.message_ids[i].src =  node_addr;
+          //   sim_broadcast.message_ids[i].seq = 1;
+          // }
+          // sim_broadcast.header = header;
+          // packetbuf_copyfrom(&sim_broadcast, sizeof(dtn_summary_vector));
+          //broadcast_recv(&broadcast, &node_addr);
+          /* Create an example variable capable of holding 50 characters */
+          for (i = 0; i < header.len; i++) {
+            sim_unicast.message[i].hdr.message_id.dest = dest_addr;
+            sim_unicast.message[i].hdr.message_id.src =  node_addr;
+            sim_unicast.message[i].hdr.message_id.seq = 1;
+            sim_unicast.message[i].hdr.number_of_copies =  10;
+            sim_unicast.message[i].hdr.timestamp =  convert_time(clock_time());
+            sim_unicast.message[i].hdr.length =  header.len;
+            strcpy(sim_unicast.message[i].msg, "test");
+            // char example[6];
+            // strcpy (example, "Hello");
+            // sim_unicast.message[i].msg = "Hi";
+          }
+          sim_unicast.header = header;
+          packetbuf_copyfrom(&sim_unicast, sizeof(dtn_vector));
+          recv_runicast(&runicast, &dest_addr, MAX_RETRANSMISSIONS);
+      }
     }
     else if (ev == sensors_event && data == &button2_sensor){
       if(list_length(messages_list) > 0) {
         m = list_head(messages_list);
         for(m = list_head(messages_list); m != NULL; m = list_item_next(m)) {
-          printf("--- [ALERT][M LIST ITEM]: Src: %d.%d | Dest: %d.%d | Seg: %d --- \n",
+          printf("--- [ALERT]: Src: %d.%d | Dest: %d.%d | Seg: %d --- \n",
           m->message.hdr.message_id.src.u8[0], m->message.hdr.message_id.src.u8[1],
           m->message.hdr.message_id.dest.u8[0], m->message.hdr.message_id.dest.u8[1],
           m->message.hdr.message_id.seq);
