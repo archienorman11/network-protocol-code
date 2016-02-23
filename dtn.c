@@ -168,10 +168,10 @@ PROCESS_THREAD(broadcast_process, ev, data)
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
       i = 0;
       for(my_vector = list_head(messages_list); my_vector != NULL; my_vector = list_item_next(my_vector)) {
-        // printf("--- [ALERT] \t [BC VECTOR ITEM]: Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
-        // my_vector->message.hdr.message_id.src.u8[0], my_vector->message.hdr.message_id.src.u8[1],
-        // my_vector->message.hdr.message_id.dest.u8[0], my_vector->message.hdr.message_id.dest.u8[1],
-        // my_vector->message.hdr.message_id.seq);
+        printf("--- [BC VECTOR ITEM]: Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
+        my_vector->message.hdr.message_id.src.u8[0], my_vector->message.hdr.message_id.src.u8[1],
+        my_vector->message.hdr.message_id.dest.u8[0], my_vector->message.hdr.message_id.dest.u8[1],
+        my_vector->message.hdr.message_id.seq);
         // send->message_ids[0].src = &tmp->message.hdr.message_id.src;
         // send->message_ids[0].dest = &tmp->message.hdr.message_id.dest;
         // send->message_ids[0].seq = &tmp->message.hdr.message_id.seq;
