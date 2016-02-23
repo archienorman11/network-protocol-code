@@ -43,7 +43,6 @@ typedef struct
 }dtn_msg_header;
 
 //broadcast messages
-
 typedef struct
 {
 	dtn_header header;
@@ -57,7 +56,6 @@ typedef struct
 }dtn_message;
 
 //uniacst massages
-
 typedef struct
 {
 	dtn_header header;
