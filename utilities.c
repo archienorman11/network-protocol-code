@@ -47,3 +47,18 @@ convert_time(clock_time_t time){
 //else {
 //  printf("No messages in the list\n");
 //}
+
+/** Simulate broadcast Receive **/ 
+
+// for (i = 0; i < header.len; i++) {
+//   rimeaddr_copy(&dest_addr, &rimeaddr_null);
+//   dest_addr.u8[0] = 128;
+//   dest_addr.u8[1] = 1 + (random_rand() % 5);
+//   sim_broadcast.message_ids[i].dest = dest_addr;
+//   sim_broadcast.message_ids[i].src =  node_addr;
+//   sim_broadcast.message_ids[i].seq = 1;
+// }
+// sim_broadcast.header = header;
+// packetbuf_copyfrom(&sim_broadcast, sizeof(dtn_summary_vector));
+//broadcast_recv(&broadcast, &node_addr);
+/* Create an example variable capable of holding 50 characters */

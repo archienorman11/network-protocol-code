@@ -23,7 +23,7 @@ typedef struct
 {
   uint8_t ver  : 3;
   uint8_t type : 2;
-  uint8_t len  : 1;
+  uint8_t len  : 3;
 }dtn_header;
 
 typedef struct
