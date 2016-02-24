@@ -35,26 +35,26 @@ AUTOSTART_PROCESSES(&broadcast_process, &simulate_neighbor);
 /*---------------------------------------------------------------------------*/
 static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
 {
+  /* Receiving broadcast */
   dtn_summary_vector *broadcast_received;
   dtn_vector_list *tmp;
+  /* Sending uncast */
   static dtn_vector unicast_message;
+  /* Unpack the data */
   broadcast_received = packetbuf_dataptr();
   int flag, i, b, a;
-
   b = 0;
-
   printf("--- [R-BC] Src: %d.%d: Dest:%d.%d: Seq:%d *** \n",
     broadcast_received->message_ids[i].src.u8[0], broadcast_received->message_ids[i].src.u8[1],
     broadcast_received->message_ids[i].dest.u8[0], broadcast_received->message_ids[i].dest.u8[1],
     broadcast_received->message_ids[i].seq
     );
-
   for(tmp = list_head(messages_list); tmp != NULL; tmp = list_item_next(tmp)) {
     for (i = 0; i < broadcast_received->header.len; i++) {
       if ((rimeaddr_cmp(&broadcast_received->message_ids[i].src, &tmp->message.hdr.message_id.src) &&
         rimeaddr_cmp(&broadcast_received->message_ids[i].dest, &tmp->message.hdr.message_id.dest) &&
         broadcast_received->message_ids[i].seq == tmp->message.hdr.message_id.seq))  {
-        printf("\n --- [ALERT] %d.%d already has: Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- \n",
+        printf("--- [ALERT] %d.%d already has: Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- \n",
           from->u8[0], from->u8[1],
           tmp->message.hdr.message_id.src.u8[0], tmp->message.hdr.message_id.src.u8[1],
           tmp->message.hdr.message_id.dest.u8[0], tmp->message.hdr.message_id.dest.u8[1],
@@ -99,7 +99,8 @@ static void recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8
       unicast_recieved->message[i].hdr.message_id.dest.u8[0], unicast_recieved->message[i].hdr.message_id.dest.u8[1],
       unicast_recieved->message[i].hdr.number_of_copies, convert_time(unicast_recieved->message[i].hdr.timestamp),
       unicast_recieved->message[i].msg);
-      if (unicast_recieved->message[i].hdr.message_id.dest.u8[1] == 11) {
+      if(rimeaddr_cmp(unicast_recieved->message[i].hdr.message_id.dest, &rimeaddr_node_addr)) {
+      //if (unicast_recieved->message[i].hdr.message_id.dest.u8[1] == 11)
         printf(" ********** Final desination reached **********\t --- Src: %d.%d | Dest: %d.%d | Copies: %d | Timestamp: %d | Msg *%s* ---\n",
         unicast_recieved->message[i].hdr.message_id.src.u8[0], unicast_recieved->message[i].hdr.message_id.src.u8[1],
         unicast_recieved->message[i].hdr.message_id.dest.u8[0], unicast_recieved->message[i].hdr.message_id.dest.u8[1],
@@ -111,7 +112,7 @@ static void recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8
         printf("--- [ALERT] New number_of_copies: %d\n", unicast_recieved->message[i].hdr.number_of_copies);
         if(list_length(messages_list) < 5){
           add_to_list = memb_alloc(&messages_memb);
-          memcpy(&add_to_list->message, &unicast_recieved->message[i], sizeof(dtn_vector_list));
+          memcpy(&add_to_list->message, &unicast_recieved->message[i], sizeof(dtn_message));
           list_add(messages_list, add_to_list);
         }
         else if (list_length(messages_list) >= 5){
@@ -165,11 +166,10 @@ PROCESS_THREAD(broadcast_process, ev, data)
       PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
       i = 0;
       for(my_vector = list_head(messages_list); my_vector != NULL; my_vector = list_item_next(my_vector)) {
-        printf("--- [BC VECTOR ITEM]: Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
-        my_vector->message.hdr.message_id.src.u8[0], my_vector->message.hdr.message_id.src.u8[1],
-        my_vector->message.hdr.message_id.dest.u8[0], my_vector->message.hdr.message_id.dest.u8[1],
-        my_vector->message.hdr.message_id.seq);
-      
+        // printf("--- [BC VECTOR ITEM]: Src: %d.%d | Dest: %d.%d | Seq: %d --- \n",
+        // my_vector->message.hdr.message_id.src.u8[0], my_vector->message.hdr.message_id.src.u8[1],
+        // my_vector->message.hdr.message_id.dest.u8[0], my_vector->message.hdr.message_id.dest.u8[1],
+        // my_vector->message.hdr.message_id.seq);
         send.message_ids[i++] = (my_vector->message.hdr.message_id);
       }
       header.type = DTN_SUMMARY_VECTOR;
@@ -226,7 +226,8 @@ PROCESS_THREAD(simulate_neighbor, ev, data)
     else if (ev == sensors_event && data == &button2_sensor){
       if(list_length(messages_list) > 0) {
         m = list_head(messages_list);
-        printf("TOT_UCST: %d | ACKS: %d | TMOUTS: %d", total_unicast_sent, acks, timeouts);
+        printf("TOT_UCST: %d | ACKS: %d | TMOUTS: %d | PERCENTAGE SUCCESS: %d \n" ,
+        total_unicast_sent, acks, timeouts, ((acks / total_unicast_sent) * 100));
         for(m = list_head(messages_list); m != NULL; m = list_item_next(m)) {
           printf("--- [ALERT]: Src: %d.%d | Dest: %d.%d | Seg: %d --- \n",
           m->message.hdr.message_id.src.u8[0], m->message.hdr.message_id.src.u8[1],
