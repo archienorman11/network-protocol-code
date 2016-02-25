@@ -1,0 +1,415 @@
+using saved target 'OrisenPrime'
+compiling file dtn.upload
+make  dtn 
+using saved target 'OrisenPrime'
+make[1]: Entering directory `/home/user/Contiki/examples/network_protocol_code'
+ln -sf ../../../cpu/mc1322x/board/OrisenPrime.h obj_OrisenPrime/board.h
+make[1]: Leaving directory `/home/user/Contiki/examples/network_protocol_code'
++++++ Programming dtn
+sudo ../../tools/OrisenPrime/mc1322x-load.pl -f ../../tools/OrisenPrime/flasher_OrisenPrime.bin -s  dtn_OrisenPrime.bin -t /dev/ttyUSB1 -c '../../tools/OrisenPrime/ftditools/bbmc -l OrisenPrime erase' && sleep 2
+<press reset button>
+Found 1 devices with vendor id 0x0403 product id 0x6010
+Opening device 0 interface 1 using layout OrisenPrime
+setting VREF2 erase
+toggle reset
+waiting for erase
+setting VREF2 normal
+toggle reset
+done.
+CONNECT
+Size: 6960 bytes
+Sending ../../tools/OrisenPrime/flasher_OrisenPrime.bin
+secondary send...
+Detecting internal nvm
+nvm_detect returned: 0x00 type is: 0x00000001
+nvm_erase returned: 0x00
+ type is: 0x00000001
+ready
+Size: 35732 bytes
+Sending dtn_OrisenPrime.bin
+done sending files.
+len: 00008b94
+ type is: 0x00000001
+nvm_write returned: 0x00
+flasher done
+loading rime address from flash.
+
+
+
+
+********************************
+Firmware version 1.2
+********************************
+Rime started with address 00:C0
+CSMA nullrdc, channel check rate 100 Hz, radio channel 26
+Starting 'Broadcast process' 'Simulate process'
+[MSG-CRT] <128.9:128.1:1> --1
+--- [R-UC] Src: 128.9 | Dest: 128.1 | Copies: 16 | Timestamp: 0 | Msg arch ---
+--- [ALERT] New number_of_copies: 8
+[MSG-CRT] <128.9:128.3:1> --2
+--- [R-UC] Src: 128.9 | Dest: 128.3 | Copies: 16 | Timestamp: 0 | Msg arch ---
+--- [ALERT] New number_of_copies: 8
+--- [R-UC] Src: 128.7 | Dest: 128.4 | Copies: 4 | Timestamp: 0 | Msg foo ---
+--- [ALERT] New number_of_copies: 2
+--- [R-UC] Src: 128.7 | Dest: 128.2 | Copies: 4 | Timestamp: 0 | Msg foo ---
+--- [ALERT] New number_of_copies: 2
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:0 *** 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 3 ********
+--- [R-UC] Src: 128.5 | Dest: 128.3 | Copies: 2 | Timestamp: 36 | Msg dude ---
+--- [ALERT] New number_of_copies: 1
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.1 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [R-UC] Src: 128.5 | Dest: 128.3 | Copies: 2 | Timestamp: 36 | Msg dude ---
+--- [ALERT] New number_of_copies: 1
+--- [ALERT] Popping last element
+--- [R-BC] Src: 128.7: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.7 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.7 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.7 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [S-UC] To: 128.7 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [S-UC] To: 128.5 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.1: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [S-UC] To: 128.5 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.4 | Seq: 1 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.7 | Dest: 128.2 | Seq: 2 | Msg: foo --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 1 | Msg: dude --- 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [R-UC] Src: 128.8 | Dest: 128.5 | Copies: 2 | Timestamp: 25 | Msg nnm2 ---
+--- [ALERT] New number_of_copies: 1
+--- [ALERT] Popping last element
+--- [R-UC] Src: 128.8 | Dest: 128.3 | Copies: 2 | Timestamp: 32 | Msg nnm1 ---
+--- [ALERT] New number_of_copies: 1
+--- [ALERT] Popping last element
+--- [R-UC] Src: 128.6 | Dest: 128.2 | Copies: 2 | Timestamp: 0 | Msg G ---
+--- [ALERT] New number_of_copies: 1
+--- [ALERT] Popping last element
+--- [R-UC] Src: 128.6 | Dest: 128.7 | Copies: 2 | Timestamp: 0 | Msg G ---
+--- [ALERT] New number_of_copies: 1
+--- [ALERT] Popping last element
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [R-BC] Src: 128.8: Dest:128.5: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.5 | Dest: 128.3 | Seq: 0 | Msg: dude --- 
+--- [ALERT] Runicast message timed out when sending to 128.5, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-UC] Src: 128.9 | Dest: 128.3 | Copies: 1 | Timestamp: 36 | Msg arch ---
+--- [ALERT] New number_of_copies: 0
+--- [ALERT] Popping last element
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:0 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.7: Seq:0 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.8: Dest:128.3: Seq:0 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.8: Dest:128.5: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.5 | Seq: 1 | Msg: nnm2 --- 
+--- [ALERT] 128.6 already has: Src: 128.8 | Dest: 128.3 | Seq: 0 | Msg: nnm1 --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.6 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [S-UC] To: 128.6 Header.len: 1 ---- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.6: Dest:128.7: Seq:0 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] Runicast message timed out when sending to 128.5, retransmissions 4
+--- [R-UC] Src: 128.3 | Dest: 128.1 | Copies: 1 | Timestamp: 0 | Msg pat ---
+--- [ALERT] New number_of_copies: 0
+--- [ALERT] Popping last element
+--- [R-UC] Src: 128.3 | Dest: 128.7 | Copies: 1 | Timestamp: 0 | Msg pat ---
+--- [ALERT] New number_of_copies: 0
+--- [ALERT] Popping last element
+--- [R-BC] Src: 128.6: Dest:128.7: Seq:0 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.2 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.2 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.2 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.5 Header.len: 1 ---- 
+--- [R-BC] Src: 128.5: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 3 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.2 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.9: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.2 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.2 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.10: Dest:128.3: Seq:0 *** 
+--- [S-UC] To: 128.1 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.5 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 3 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.10: Dest:128.3: Seq:0 *** 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.10: Dest:128.3: Seq:0 *** 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.10: Dest:128.3: Seq:0 *** 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 
+--- [R-BC] Src: 128.1: Dest:9.1: Seq:128 *** 
+--- [S-UC] To: 128.7 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.1: Dest:9.1: Seq:128 *** 
+--- [S-UC] To: 128.7 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.2: Seq:1 *** 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.2 | Seq: 1 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.6 | Dest: 128.7 | Seq: 0 | Msg: G --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.3 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.1 | Seq: 0 | Msg: pat --- 
+--- [ALERT] 128.5 already has: Src: 128.3 | Dest: 128.7 | Seq: 1 | Msg: pat --- 

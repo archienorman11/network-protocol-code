@@ -1,0 +1,889 @@
+using saved target 'OrisenPrime'
+compiling file dtn.upload
+make  dtn 
+using saved target 'OrisenPrime'
+make[1]: Entering directory `/home/user/Contiki/examples/network_protocol_code'
+ln -sf ../../../cpu/mc1322x/board/OrisenPrime.h obj_OrisenPrime/board.h
+arm-none-eabi-gcc -DCONTIKI=1 -DCONTIKI_TARGET_ORISENPRIME=1 -I. -I../../core -I../../cpu/mc1322x -I../../cpu/mc1322x/loader -I../../cpu/mc1322x/dbg-io -I../../platform/OrisenPrime -I../../cpu/mc1322x/lib/include -I../../cpu/mc1322x/src -I../../cpu/mc1322x/board  -DWITH_ASCII -DMCK= -Werror -mcpu=arm7tdmi-s -mthumb-interwork -march=armv4t -mtune=arm7tdmi-s -mlong-calls -DCONFIG_ARM -D__ARM__  -g  -Os -DRUN_AS_SYSTEM -DROM_RUN -fno-strict-aliasing  -fno-common -ffixed-r8 -msoft-float -DTEXT_BASE=0x00400000 -fno-builtin-printf -fno-builtin-sprintf -ffunction-sections -fdata-sections -MMD  -Iobj_OrisenPrime -I../../cpu/mc1322x/board -DBOARD=OrisenPrime  -I. -I../../platform/OrisenPrime/. -I../../platform/OrisenPrime/dev -I../../platform/OrisenPrime/apps -I../../platform/OrisenPrime/net -I../../platform/OrisenPrime/dev/include -I../../cpu/mc1322x/. -I../../cpu/mc1322x/lib -I../../cpu/mc1322x/src -I../../cpu/mc1322x/board -I../../cpu/mc1322x/dev -I../../cpu/mc1322x/../arm/common/dbg-io -I../../core/dev -I../../core/lib -I../../core/net -I../../core/net/mac -I../../core/net/rime -I../../core/net/rpl -I../../core/sys -I../../core/cfs -I../../core/ctk -I../../core/lib/ctk -I../../core/loader -I../../core/. -I../../platform/OrisenPrime/ -DPROJECT_CONF_H=\"project-conf.h\" -DAUTOSTART_ENABLE -mthumb -mcallee-super-interworking dtn.c -c -o dtn.co
+arm-none-eabi-gcc -T ../../cpu/mc1322x/mc1322x.lds -nostartfiles -static -u_start -Wl,-Map=contiki-OrisenPrime.map,-export-dynamic,--gc-sections -DCONTIKI=1 -DCONTIKI_TARGET_ORISENPRIME=1 -I. -I../../core -I../../cpu/mc1322x -I../../cpu/mc1322x/loader -I../../cpu/mc1322x/dbg-io -I../../platform/OrisenPrime -I../../cpu/mc1322x/lib/include -I../../cpu/mc1322x/src -I../../cpu/mc1322x/board  -DWITH_ASCII -DMCK= -Werror -mcpu=arm7tdmi-s -mthumb-interwork -march=armv4t -mtune=arm7tdmi-s -mlong-calls -DCONFIG_ARM -D__ARM__  -g  -Os -DRUN_AS_SYSTEM -DROM_RUN -fno-strict-aliasing  -fno-common -ffixed-r8 -msoft-float -DTEXT_BASE=0x00400000 -fno-builtin-printf -fno-builtin-sprintf -ffunction-sections -fdata-sections -MMD  -Iobj_OrisenPrime -I../../cpu/mc1322x/board -DBOARD=OrisenPrime  -I. -I../../platform/OrisenPrime/. -I../../platform/OrisenPrime/dev -I../../platform/OrisenPrime/apps -I../../platform/OrisenPrime/net -I../../platform/OrisenPrime/dev/include -I../../cpu/mc1322x/. -I../../cpu/mc1322x/lib -I../../cpu/mc1322x/src -I../../cpu/mc1322x/board -I../../cpu/mc1322x/dev -I../../cpu/mc1322x/../arm/common/dbg-io -I../../core/dev -I../../core/lib -I../../core/net -I../../core/net/mac -I../../core/net/rime -I../../core/net/rpl -I../../core/sys -I../../core/cfs -I../../core/ctk -I../../core/lib/ctk -I../../core/loader -I../../core/. -I../../platform/OrisenPrime/ -DPROJECT_CONF_H=\"project-conf.h\" -nostartfiles -o dtn.elf obj_OrisenPrime/board.h dtn.co obj_OrisenPrime/contiki-prime-main.o obj_OrisenPrime/start.o contiki-OrisenPrime.a contiki-OrisenPrime.a
+arm-none-eabi-objcopy -O binary dtn.elf dtn_OrisenPrime.bin
+rm dtn.co dtn.elf
+make[1]: Leaving directory `/home/user/Contiki/examples/network_protocol_code'
++++++ Programming dtn
+sudo ../../tools/OrisenPrime/mc1322x-load.pl -f ../../tools/OrisenPrime/flasher_OrisenPrime.bin -s  dtn_OrisenPrime.bin -t /dev/ttyUSB1 -c '../../tools/OrisenPrime/ftditools/bbmc -l OrisenPrime erase' && sleep 2
+<press reset button>
+Found 1 devices with vendor id 0x0403 product id 0x6010
+Opening device 0 interface 1 using layout OrisenPrime
+setting VREF2 erase
+toggle reset
+waiting for erase
+setting VREF2 normal
+toggle reset
+done.
+CONNECT
+Size: 6960 bytes
+Sending ../../tools/OrisenPrime/flasher_OrisenPrime.bin
+secondary send...
+Detecting internal nvm
+nvm_detect returned: 0x00 type is: 0x00000001
+nvm_erase returned: 0x00
+ type is: 0x00000001
+ready
+Size: 35732 bytes
+Sending dtn_OrisenPrime.bin
+done sending files.
+len: 00008b94
+ type is: 0x00000001
+nvm_write returned: 0x00
+flasher done
+loading rime address from flash.
+
+
+
+
+********************************
+Firmware version 1.2
+********************************
+Rime started with address 00:C0
+CSMA nullrdc, channel check rate 100 Hz, radio channel 26
+Starting 'Broadcast process' 'Simulate process'
+loading rime address from flash.
+
+
+
+
+********************************
+Firmware version 1.2
+********************************
+Rime started with address 00:C0
+CSMA nullrdc, channel check rate 100 Hz, radio channel 26
+Starting 'Broadcast process' 'Simulate process'
+loading rime address from flash.
+
+
+
+
+********************************
+Firmware version 1.2
+********************************
+Rime started with address 00:C0
+CSMA nullrdc, channel check rate 100 Hz, radio channel 26
+Starting 'Broadcast process' 'Simulate process'
+[MSG-CRT] <128.9:128.6:1> --0
+--- [R-UC] Src: 128.9 | Dest: 128.6 | Copies: 8 | Timestamp: 0 | Msg arch ---
+--- [ALERT] New number_of_copies: 4
+[MSG-CRT] <128.9:128.8:1> --0
+--- [R-UC] Src: 128.9 | Dest: 128.8 | Copies: 8 | Timestamp: 0 | Msg arch ---
+--- [ALERT] New number_of_copies: 4
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [S-UC] To: 128.11 Header.len: 2 ---- 
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.11, retransmissions 4
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.1, retransmissions 4
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] Runicast message timed out when sending to 128.1, retransmissions 4
+--- [R-UC] Src: 128.11 | Dest: 128.3 | Copies: 2 | Timestamp: 42352 | Msg l2 ---
+--- [ALERT] New number_of_copies: 1
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [S-UC] To: 128.11 Header.len: 2 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.11, retransmissions 4
+TOT_UCST: 5 | ACKS: 1 | TMOUTS: 4 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.8: Dest:128.5: Seq:0 *** 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.7: Dest:128.6: Seq:1 *** 
+--- [S-UC] To: 128.7 Header.len: 3 ---- 
+--- [R-BC] Src: 128.7: Dest:128.9: Seq:2 *** 
+--- [ALERT] Runicast message timed out when sending to 128.7, retransmissions 4
+--- [R-BC] Src: 128.6: Dest:128.3: Seq:1 *** 
+--- [S-UC] To: 128.6 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.7: Dest:128.9: Seq:2 *** 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 2 ********
+--- [R-BC] Src: 128.1: Dest:128.9: Seq:1 *** 
+--- [S-UC] To: 128.1 Header.len: 3 ---- 
+--- [R-BC] Src: 128.1: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.1, retransmissions 4
+--- [R-BC] Src: 128.3: Dest:128.6: Seq:0 *** 
+--- [S-UC] To: 128.3 Header.len: 3 ---- 
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.1: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 3 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:108 *** 
+--- [S-UC] To: 128.4 Header.len: 3 ---- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.10: Dest:128.9: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] Runicast message timed out when sending to 128.4, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.3 Header.len: 1 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [R-UC] Src: 128.10 | Dest: 128.9 | Copies: 0 | Timestamp: 0 | Msg da1 ---
+ ********** Final desination reached **********	 --- Src: 128.10 | Dest: 128.9 | Copies: 0 | Timestamp: 0 | Msg *da1* ---
+[RCV-RCH] <128.10:128.9:1> from 128.6 --59
+--- [R-UC] Src: 128.1 | Dest: 128.9 | Copies: 0 | Timestamp: 42352 | Msg Hi ---
+ ********** Final desination reached **********	 --- Src: 128.1 | Dest: 128.9 | Copies: 0 | Timestamp: 42352 | Msg *Hi* ---
+[RCV-RCH] <128.1:128.9:1> from 128.6 --59
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 2 ********
+--- [R-BC] Src: 128.2: Dest:128.1: Seq:0 *** 
+--- [S-UC] To: 128.6 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:150 *** 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 2 ********
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [S-UC] To: 128.11 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.11, retransmissions 4
+--- [R-UC] Src: 128.4 | Dest: 128.3 | Copies: 1 | Timestamp: 42352 | Msg saly ---
+--- [ALERT] New number_of_copies: 0
+--- [R-UC] Src: 128.4 | Dest: 128.6 | Copies: 1 | Timestamp: 42352 | Msg sal2 ---
+--- [ALERT] New number_of_copies: 0
+--- [R-UC] Src: 128.10 | Dest: 128.9 | Copies: 1 | Timestamp: 0 | Msg da1 ---
+ ********** Final desination reached **********	 --- Src: 128.10 | Dest: 128.9 | Copies: 1 | Timestamp: 0 | Msg *da1* ---
+[RCV-RCH] <128.10:128.9:1> from 128.1 --65
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [S-UC] To: 128.8 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [S-UC] To: 128.6 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.10: Dest:128.9: Seq:1 *** 
+--- [S-UC] To: 128.10 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.10 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 2 ********
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [S-UC] To: 128.11 Header.len: 4 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [R-BC] Src: 128.3: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.11, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.3: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 2 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.8 Header.len: 4 ---- 
+--- [R-BC] Src: 128.3: Dest:128.6: Seq:150 *** 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.3: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 7.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] Runicast message timed out when sending to 128.3, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.3 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.3 Header.len: 4 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] Runicast message timed out when sending to 128.3, retransmissions 4
+--- [R-BC] Src: 128.1: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.11 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.11 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.11 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.3 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.3 Header.len: 4 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 3 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.10 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.10 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.10 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.10 Header.len: 2 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.3 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.10, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [S-UC] To: 128.8 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.3 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [S-UC] To: 128.11 Header.len: 4 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] Runicast message timed out when sending to 128.11, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.5: Seq:0 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 2 ********
+--- [R-BC] Src: 128.6: Dest:128.5: Seq:0 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.3 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 2 ********
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [S-UC] To: 128.10 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.10 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.6: Dest:128.5: Seq:0 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.3 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.3 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [R-BC] Src: 111.46: Dest:64.0: Seq:64 *** 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 2 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [S-UC] To: 128.11 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.11 | TMS; 1 ********
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 7.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 1 ********
+--- [R-BC] Src: 181.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 2 ********
+--- [R-BC] Src: 181.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 1 ********
+--- [R-BC] Src: 180.144: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 1 ********
+--- [R-BC] Src: 180.144: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 180.144: Dest:64.0: Seq:64 *** 
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.5 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-UC] Src: 128.10 | Dest: 128.9 | Copies: 1 | Timestamp: 0 | Msg da1 ---
+ ********** Final desination reached **********	 --- Src: 128.10 | Dest: 128.9 | Copies: 1 | Timestamp: 0 | Msg *da1* ---
+[RCV-RCH] <128.10:128.9:1> from 128.7 --168
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.11: Dest:128.3: Seq:2 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.7 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.3: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 3 ********
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.7 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.5 Header.len: 2 ---- 
+--- [R-BC] Src: 181.46: Dest:64.0: Seq:64 *** 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.5, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.7 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 111.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 3 ********
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.5 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.5 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 3 ********
+--- [R-BC] Src: 7.144: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.6: Dest:128.5: Seq:0 *** 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.2 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 2 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.2 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 2 ********
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [S-UC] To: 128.7 Header.len: 4 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 2 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.7 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.7 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.7 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.7 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.2 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.2 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.2 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.2 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.5 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.5 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.5 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 181.46: Dest:64.0: Seq:64 *** 
+--- [S-UC] To: 128.3 Header.len: 5 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.2 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.3 | TMS; 2 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+TOT_UCST: 89 | ACKS: 66 | TMOUTS: 23 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 1 ---- 
+--- [R-BC] Src: 181.46: Dest:64.0: Seq:64 *** 
+--- [ALERT] Runicast message timed out when sending to 128.1, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.8: Seq:1 *** 
+--- [ALERT] 128.10 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.1 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+TOT_UCST: 94 | ACKS: 68 | TMOUTS: 26 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+TOT_UCST: 94 | ACKS: 68 | TMOUTS: 26 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+TOT_UCST: 95 | ACKS: 68 | TMOUTS: 27 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 2 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [ALERT] Runicast message timed out when sending to 128.8, retransmissions 4
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.1 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.1 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] Runicast message timed out when sending to 128.4, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:150 *** 
+--- [S-UC] To: 128.4 Header.len: 5 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.4 | TMS; 1 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.11: Dest:128.4: Seq:1 *** 
+--- [ALERT] 128.11 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] Runicast message timed out when sending to 128.6, retransmissions 4
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.9: Dest:128.6: Seq:1 *** 
+--- [ALERT] 128.8 already has: Src: 128.9 | Dest: 128.6 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.8 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
+--- [S-UC] To: 128.8 Header.len: 3 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.8 | TMS; 1 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+TOT_UCST: 107 | ACKS: 77 | TMOUTS: 30 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [ALERT] ******** SUCCESSFULLLY SENT TO 128.6 | TMS; 1 ********
+TOT_UCST: 109 | ACKS: 79 | TMOUTS: 30 | PERCENTAGE SUCCESS: 0 
+--- [ALERT]: Src: 128.9 | Dest: 128.6 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.9 | Dest: 128.8 | Seg: 1 | Msg: arch --- 
+--- [ALERT]: Src: 128.11 | Dest: 128.3 | Seg: 2 | Msg: l2 --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.3 | Seg: 1 | Msg: saly --- 
+--- [ALERT]: Src: 128.4 | Dest: 128.6 | Seg: 2 | Msg: sal2 --- 
+--- [R-BC] Src: 128.2: Dest:128.7: Seq:1 *** 
+--- [ALERT] 128.6 already has: Src: 128.9 | Dest: 128.8 | Seq: 1 | Msg: arch --- 
+--- [ALERT] 128.6 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.6 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [S-UC] To: 128.6 Header.len: 2 ---- 
+--- [R-BC] Src: 128.4: Dest:128.6: Seq:2 *** 
+--- [ALERT] 128.1 already has: Src: 128.11 | Dest: 128.3 | Seq: 2 | Msg: l2 --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.3 | Seq: 1 | Msg: saly --- 
+--- [ALERT] 128.1 already has: Src: 128.4 | Dest: 128.6 | Seq: 2 | Msg: sal2 --- 
