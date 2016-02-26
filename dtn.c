@@ -1,3 +1,12 @@
+/**
+* @file dtn.c
+* @author Archie Norman
+* @date 26th Feb 2016
+* @brief Contiki is a open source,efficient operating system, designed for sensor networks
+* withlimited computing resources. This code implements the Spray and Wait algorithm,
+* de-scribes a protocol design for the Contiki OS and its implementation focusing mainly on
+* the best-effort and reliable communication abstractions.
+*/
 #include "dtn.h"
 #include "utilities.c"
 #include "contiki.h"
@@ -39,8 +48,10 @@ PROCESS(broadcast_process, "Broadcast process");
 PROCESS(button_actions, "Buttons process");
 ///The AUTOSTART_PROCESSES() definition specifices what processes to start when this module is loaded. We put both our processes there.
 AUTOSTART_PROCESSES(&broadcast_process, &button_actions);
-/*Broadcast receive function takes a pointer to the delared broadcast connetion struct
- * and a from address as parareters.*/
+/*
+ *@param1 - Broadcast receive function takes a pointer to the delared broadcast connetion struct
+ *@param2 - from address as parareters.
+ */
 static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
 {
   /*
@@ -58,10 +69,11 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
   int flag, i, b, a, d;
   b = 0;
   ///Sanity check to mkae sure the data we receive is correct
-  printf("--- [R-BC] Src: %d.%d: Dest:%d.%d: Seq:%d *** \n",
-    broadcast_received->message_ids[i].src.u8[0], broadcast_received->message_ids[i].src.u8[1],
-    broadcast_received->message_ids[i].dest.u8[0], broadcast_received->message_ids[i].dest.u8[1],
-    broadcast_received->message_ids[i].seq
+  printf("--- [R-BC] From: %d.%d *** \n",
+    from->u8[0], from->u8[1]
+    // broadcast_received->message_ids[i].src.u8[0], broadcast_received->message_ids[i].src.u8[1],
+    // broadcast_received->message_ids[i].dest.u8[0], broadcast_received->message_ids[i].dest.u8[1],
+    // broadcast_received->message_ids[i].seq
     );
   /*
    *Assign the first element in the messages cache to
@@ -74,7 +86,7 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
       ///Check to see which messages the neighbour already has
       if ((rimeaddr_cmp(&broadcast_received->message_ids[i].src, &tmp->message.hdr.message_id.src) &&
         rimeaddr_cmp(&broadcast_received->message_ids[i].dest, &tmp->message.hdr.message_id.dest) &&
-        broadcast_received->message_ids[i].seq == tmp->message.hdr.message_id.seq))  {
+        broadcast_received->message_ids[i].seq == tmp->message.hdr.message_id.seq)) {
         // printf("--- [ALERT] %d.%d already has: Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s --- \n",
         //   from->u8[0], from->u8[1],
         //   tmp->message.hdr.message_id.src.u8[0], tmp->message.hdr.message_id.src.u8[1],
@@ -86,6 +98,14 @@ static void broadcast_recv(struct broadcast_conn *c, const rimeaddr_t *from)
       }
     }
     if(i == broadcast_received->header.len) {
+      ///Check to see if the there is only one copy left of this message
+      if(tmp->message.hdr.number_of_copies == 1) {
+        /// Only one left, check to see if they are the destination address
+        if(!rimeaddr_cmp(&tmp->message.hdr.message_id.dest, from)) {
+          printf("--- [ALERT] This neighbour does not have this message, but they are not the destination and there is only one copy left\n");
+          continue;
+        }
+      }
       ///Add the message in my cache to the unicast message so its ready for sending
       unicast_message.message[b] = tmp->message;
       ///Make sure we are not sending a 0 value for the number of copies remaining.
@@ -180,7 +200,13 @@ static void recv_runicast(struct runicast_conn *c, const rimeaddr_t *from, uint8
       }
     }
 }
-///This is the callback function, this tells us when a message has been delivered
+
+/*
+ * @brief This is the callback function, this tells us when a message has been delivered
+ * @param1 - the runiast connection parameter
+ * @param2 - the destination node of the original runicast messagea
+ * @param3 - the number of transmissions
+ */
 static void sent_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t retransmissions)
 {
   dtn_vector_list *final_destination_check;
@@ -190,14 +216,23 @@ static void sent_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t
   final_destination_check = list_head(messages_list);
   for(final_destination_check = list_head(messages_list); final_destination_check != NULL; final_destination_check = list_item_next(final_destination_check)) {
     ///If the message was sent to its final destination then we should remove it from the list
-    if (rimeaddr_cmp(&final_destination_check->message.hdr.message_id.dest, to) && final_destination_check->message.hdr.number_of_copies == 1) {
+    if (rimeaddr_cmp(&final_destination_check->message.hdr.message_id.dest, to)) {
       printf("--- [ALERT] Sent to final destination, cleaning the message list.\n");
       list_remove(messages_list, final_destination_check);
       memb_free(&messages_memb, final_destination_check);
     }
+    ///Halve the number of copies in the message list upon acknowledgement
+    else {
+      final_destination_check->message.hdr.number_of_copies /= 2;
+    }
   }
 }
-///Keeps track of the number of timeouts
+/*
+ * @brief Keeps track of the number of timeouts
+ * @param1 - the runiast connection parameter
+ * @param2 - the destination node of the original runicast messagea
+ * @param3 - the number of transmissions
+ */
 static void timedout_runicast(struct runicast_conn *c, const rimeaddr_t *to, uint8_t retransmissions)
 {
   printf("--- [ALERT] Runicast message timed out when sending to %d.%d, retransmissions %d\n", to->u8[0], to->u8[1], retransmissions);
@@ -206,7 +241,12 @@ static void timedout_runicast(struct runicast_conn *c, const rimeaddr_t *to, uin
 }
 static const struct runicast_callbacks runicast_callbacks = {recv_runicast, sent_runicast, timedout_runicast};
 static struct runicast_conn runicast;
-///Single protohead
+/*
+ * @brief Single protohead, called when an event occurs
+ * @param1 - the defined process parameter
+ * @param2 - the event
+ * @param3 - the number of transmissions
+ */
 PROCESS_THREAD(broadcast_process, ev, data)
 {
   ///Define strutures and variables used in the process
@@ -304,7 +344,7 @@ PROCESS_THREAD(button_actions, ev, data)
           for (i = 0; i < header.len; i++) {
             sim_unicast.message[i].hdr.message_id.dest = dest_addr;
             sim_unicast.message[i].hdr.message_id.src =  node_addr;
-            sim_unicast.message[i].hdr.message_id.seq = 1;
+            sim_unicast.message[i].hdr.message_id.seq = i;
             sim_unicast.message[i].hdr.number_of_copies =  1;
             sim_unicast.message[i].hdr.timestamp =  clock_seconds();
             sim_unicast.message[i].hdr.length =  header.len;
@@ -327,10 +367,10 @@ PROCESS_THREAD(button_actions, ev, data)
         m = list_head(messages_list);
         ///Display some stats
         printf("TOT_UCST: %d | ACKS: %d | TMOUTS: %d | PERCENTAGE SUCCESS: %d \n" ,
-        total_unicast_sent, acks, timeouts, (float)((acks / total_unicast_sent) * 100));
+        total_unicast_sent, acks, timeouts,  total_unicast_sent / acks * 100);
         ///Iterate through the cache
         for(m = list_head(messages_list); m != NULL; m = list_item_next(m)) {
-          printf("--- [ALERT]: Src: %d.%d | Dest: %d.%d | Seg: %d | Msg: %s Number of copies: %d --- \n",
+          printf("--- [ALERT]: Src: %d.%d | Dest: %d.%d | Seq: %d | Msg: %s | Number of copies: %d --- \n",
           m->message.hdr.message_id.src.u8[0], m->message.hdr.message_id.src.u8[1],
           m->message.hdr.message_id.dest.u8[0], m->message.hdr.message_id.dest.u8[1],
           m->message.hdr.message_id.seq,

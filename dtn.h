@@ -1,5 +1,12 @@
-/*
- *Delay Tolerant Network: protocol header
+/**
+ * @file dtn.h
+ * @author Archie Norman
+ * @date 26th Feb 2016
+ * @brief Contiki is a open source,efficient operating system, designed for sensor networks
+ * withlimited computing resources. This code implements the Spray and Wait algorithm,
+ * de-scribes a protocol design for the Contiki OS and its implementation focusing mainly on
+ * the best-effort and reliable communication abstractions.
+ *
  */
 #include "contiki.h"
 #include "net/rime.h"
